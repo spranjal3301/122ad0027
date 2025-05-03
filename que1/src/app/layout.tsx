@@ -1,11 +1,13 @@
+
 import type React from "react"
 import "./globals.css"
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 import { ThemeProvider } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
 import theme from "@/lib/theme"
 import Navbar from "@/components/navbar"
 import { Container } from "@mui/material"
+import AppRouterProvider from "@/components/AppRouterProvider";
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
 
 export const metadata = {
   title: "Social Media Analytics",
@@ -21,13 +23,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
+          {/* <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Navbar />
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Navbar /> */}
+            {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}> */}
               {children}
-            </Container>
-          </ThemeProvider>
+            {/* </Container> */}
+          {/* </ThemeProvider> */}
         </AppRouterCacheProvider>
       </body>
     </html>
