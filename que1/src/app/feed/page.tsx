@@ -25,6 +25,8 @@ import {
 } from "@mui/icons-material"
 import { fetchAllPostsWithComments, fetchPostComments, type Post, type Comment } from "@/lib/socialApi"
 
+
+//- Show a real-time feed of posts, newest at the top.
 export default function Feed() {
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
@@ -32,11 +34,14 @@ export default function Feed() {
   const [comments, setComments] = useState<{ [postId: number]: Comment[] }>({})
   const [loadingComments, setLoadingComments] = useState<{ [postId: number]: boolean }>({})
 
+
+
+
   const fetchPosts = useCallback(async () => {
     setLoading(true)
     try {
       const allPosts = await fetchAllPostsWithComments()
-      // Sort by newest first (assuming higher IDs are newer posts)
+       // Sort by newest first (assuming higher IDs are newer posts)
       const sortedPosts = [...allPosts].sort((a, b) => b.id - a.id)
       setPosts(sortedPosts)
     } catch (error) {
@@ -45,6 +50,8 @@ export default function Feed() {
       setLoading(false)
     }
   }, [])
+
+
 
   useEffect(() => {
     fetchPosts()
@@ -89,6 +96,7 @@ export default function Feed() {
       {loading ? (
         <Grid container spacing={3}>
           {[...Array(6)].map((_, index) => (
+            //@ts-ignore
             <Grid item xs={12} key={index}>
               <Card>
                 <Box sx={{ p: 2, display: "flex", alignItems: "center" }}>
@@ -111,6 +119,7 @@ export default function Feed() {
       ) : (
         <Grid container spacing={3}>
           {posts.map((post) => (
+            //@ts-ignore
             <Grid item xs={12} key={post.id}>
               <Card>
                 <Box sx={{ p: 2, display: "flex", alignItems: "center" }}>

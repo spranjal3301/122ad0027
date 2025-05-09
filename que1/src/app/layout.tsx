@@ -23,13 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AppRouterCacheProvider>
-          {/* <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Navbar /> */}
-            {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}> */}
+        
               {children}
-            {/* </Container> */}
-          {/* </ThemeProvider> */}
+      
         </AppRouterCacheProvider>
       </body>
     </html>

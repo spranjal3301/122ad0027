@@ -19,6 +19,8 @@ import {
 } from "@mui/material"
 import { fetchTopUsers, type User, getRandomImageUrl } from "@/lib/socialApi"
 
+
+//- Show the top 5 users whose posts have received the most total comments.
 export default function TopUsers() {
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
@@ -48,6 +50,7 @@ export default function TopUsers() {
       {loading ? (
         <Grid container spacing={3}>
           {[...Array(5)].map((_, index) => (
+          
             <Grid item xs={12} key={index}>
               <Card>
                 <CardContent>
@@ -67,6 +70,7 @@ export default function TopUsers() {
         <>
           <Grid container spacing={3} sx={{ mb: 4 }}>
             {users.map((user, index) => (
+              //@ts-ignore
               <Grid item xs={12} md={6} lg={4} key={user.id}>
                 <Card sx={{ height: "100%" }}>
                   <CardContent>

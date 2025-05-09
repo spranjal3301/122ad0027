@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 
 require('dotenv').config()
 
@@ -87,7 +88,7 @@ app.get('/numbers/:id', async (req, res) => {
       }
     }
   }
-
+  //- Responds with the previous state, current state, the fetched numbers,
   return res.json({
     windowPrevState,
     windowCurrState: windowList,

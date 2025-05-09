@@ -35,9 +35,7 @@ export const getRandomImageUrl = (seed: number, type: "user" | "post") => {
 export const fetchUsers = async (): Promise<User[]> => {
   try {
     const res = await axiosClient.get('/users');
-    console.log(res.data);
     const data = res.data;
-
 
     const users: User[] = Object.entries(data.users || data).map(([id, name]) => ({
       id,
@@ -50,6 +48,7 @@ export const fetchUsers = async (): Promise<User[]> => {
     return []
   }
 }
+
 
 export const fetchUserPosts = async (userId: string): Promise<Post[]> => {
   try {
@@ -117,14 +116,13 @@ export const fetchAllPostsWithComments = async (): Promise<Post[]> => {
 
 export const fetchTopUsers = async (limit = 5): Promise<User[]> => {
   try {
-    // First, fetch all users
+ 
     const users = await fetchUsers()
 
-    // For each user, fetch their posts and count comments
+  
     const usersWithCommentCountsPromises = users.map(async (user) => {
       const posts = await fetchUserPosts(user.id)
 
-      // For each post, fetch comments and count them
       const postCommentCountsPromises = posts.map(async (post) => {
         const comments = await fetchPostComments(post.id)
         return comments.length
@@ -142,7 +140,6 @@ export const fetchTopUsers = async (limit = 5): Promise<User[]> => {
 
     const usersWithCommentCounts = await Promise.all(usersWithCommentCountsPromises)
 
-    // Sort users by comment count in descending order and take the top 'limit'
     return usersWithCommentCounts.sort((a, b) => (b.commentCount || 0) - (a.commentCount || 0)).slice(0, limit)
   } catch (error) {
     console.error("Error fetching top users:", error)
@@ -150,19 +147,17 @@ export const fetchTopUsers = async (limit = 5): Promise<User[]> => {
   }
 }
 
-// Fetch trending posts (posts with the most comments)
+
 export const fetchTrendingPosts = async (): Promise<Post[]> => {
   try {
     const allPosts = await fetchAllPostsWithComments()
 
-    // Sort posts by comment count in descending order
     const sortedPosts = [...allPosts].sort((a, b) => (b.commentCount || 0) - (a.commentCount || 0))
 
-    // If there are posts, find the maximum comment count
+
     if (sortedPosts.length > 0) {
       const maxCommentCount = sortedPosts[0].commentCount || 0
 
-      // Return all posts that have the maximum comment count
       return sortedPosts.filter((post) => post.commentCount === maxCommentCount)
     }
 
@@ -170,5 +165,17 @@ export const fetchTrendingPosts = async (): Promise<Post[]> => {
   } catch (error) {
     console.error("Error fetching trending posts:", error)
     return []
+  }
+}
+
+
+{
+  async function load() {
+    let data;
+    fetch('/api/data').then(res => res.json()).then(json => {
+      data = json;
+    });
+  
+    console.log(data); // logs undefined
   }
 }

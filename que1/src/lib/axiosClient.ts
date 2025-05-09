@@ -11,26 +11,6 @@ const axiosClient = axios.create({
   },
 });
 
-export const testfetchUsers = async (): Promise<any> => {
-  try {
-    const res = await axiosClient.get('/users');
-    console.log(res.data);
-    const data = res.data;
 
-
-    const users = Object.entries(data.users || data).map(([id, name]) => ({
-      id,
-      name: name as string,
-    }))
-
-    console.log(users);
-    
-
-    return users
-  } catch (error) {
-    console.error("Error fetching users:", error)
-    return []
-  }
-}
 
 export default axiosClient;

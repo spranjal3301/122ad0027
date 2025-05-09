@@ -5,6 +5,8 @@ import { Typography, Card, CardContent, CardMedia, Grid, Box, Avatar, Chip, Skel
 import { Comment as CommentIcon } from "@mui/icons-material"
 import { fetchTrendingPosts, type Post } from "@/lib/socialApi"
 
+
+//- Show the post(s) that have the maximum number of comments.
 export default function TrendingPosts() {
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
@@ -39,6 +41,7 @@ export default function TrendingPosts() {
       {loading ? (
         <Grid container spacing={3}>
           {[...Array(3)].map((_, index) => (
+            //@ts-ignore
             <Grid item xs={12} md={6} lg={4} key={index}>
               <Card>
                 <Skeleton variant="rectangular" height={200} />
@@ -61,6 +64,7 @@ export default function TrendingPosts() {
       ) : (
         <Grid container spacing={3}>
           {posts.map((post) => (
+            //@ts-ignore
             <Grid item xs={12} md={6} lg={4} key={post.id}>
               <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
                 <CardMedia component="img" height="200" image={post.imageUrl} alt={`Post ${post.id}`} />
